@@ -77,9 +77,11 @@ Elvis and Lee traveled 450 miles, Elvis is the top traveler as his name is alpha
 Bob, Jonathan, Alex, and Alice have only one ride and we just order them by the total distances of the ride.
 Donald did not have any rides, the distance traveled by him is 0. */
 
-select name,SUM(COALESCE(distance, 0)) as travelled_distance
-from Users u
-left join Rides r
-on u.id=r.user_id
-group by name
-order by travelled_distance desc, name asc;
+SELECT
+  u.name,
+  SUM(COALESCE(r.distance, 0)) AS travelled_distance
+FROM Users u
+LEFT JOIN Rides r
+  ON u.id = r.user_id
+GROUP BY u.id, u.name
+ORDER BY travelled_distance DESC, u.name ASC;
